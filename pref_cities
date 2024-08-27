@@ -1,0 +1,33 @@
+import requests
+
+api_key = "0iKaDKQrdMpKRS2LVhDifNC8QxMWDASPp9HVlnB7"
+headers = {"X-API-KEY": api_key}
+
+
+def get_pref_code(prefName):
+    response = requests.get("https://opendata.resas-portal.go.jp/api/v1/prefectures", headers=headers)
+    data_dict = response.json()
+    pref_dict = {item["prefName"]: item["prefCode"] for item in data_dict["result"]}
+    return pref_dict[prefName]
+
+
+def get_city_code(prefCode, cityName):
+    response = requests.get(
+        f"https://opendata.resas-portal.go.jp/api/v1/cities?prefCode={prefCode}", headers=headers
+    )
+    data_dict = response.json()
+    city_code_dict = {item["cityName"]: item["cityCode"] for item in data_dict["result"]}
+    return city_code_dict.get(cityName)
+
+
+# https://qiita.com/Sei123/items/b825abae8ba6cf3eb0ff
+def main():
+    prefName = input("都道府県名を入れてください:")
+    i = get_pref_code(prefName)
+    print(i)
+    cityName = input("市町村を入れてください。:")
+    print(get_city_code(i, cityName))
+
+
+if __name__ == "__main__":
+    main()
