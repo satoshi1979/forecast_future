@@ -1,16 +1,16 @@
 import requests
 import matplotlib.pyplot as plt
-import numpy as np
 
 
 api_key = "0iKaDKQrdMpKRS2LVhDifNC8QxMWDASPp9HVlnB7"
 headers = {"X-API-KEY": api_key}
 
-data_list = []
+
 limited_years = [2012, 2016]
 
 
 def get_data():
+    data_list = []
     for year in limited_years:
         response = requests.get(
             f"https://opendata.resas-portal.go.jp/api/v1/municipality/value/perYear?simcCode=51&cityCode=04100&year={year}&prefCode=4&sicCode=I",
@@ -23,7 +23,7 @@ def get_data():
 
 # https://qiita.com/Sei123/items/b825abae8ba6cf3eb0ff
 def main():
-    get_data()
+    data_list = get_data()
     print(data_list)
     fig, ax = plt.subplots()
     ax.plot(limited_years, data_list)
