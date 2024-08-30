@@ -1,6 +1,6 @@
 import requests
 import matplotlib.pyplot as plt
-from pref_cities import get_city_code
+
 
 api_key = "0iKaDKQrdMpKRS2LVhDifNC8QxMWDASPp9HVlnB7"
 headers = {"X-API-KEY": api_key}
@@ -9,24 +9,7 @@ headers = {"X-API-KEY": api_key}
 limited_years = [2012, 2016]
 
 
-def get_data(y):
-    data_list = []
-    prefCode, cityCode = get_city_code()
-    for year in limited_years:
-        base_url = "https://opendata.resas-portal.go.jp/api/v1/municipality/value/perYear?simcCode="
-        params = f"-&cityCode={cityCode}&year={year}&prefCode={prefCode}&sicCode=-"
-        url = base_url + params
-        response = requests.get(url, headers=headers)
-        data = response.json()
-        print(data)
-        try:
-            data_list.append(data["result"]["data"][0]["value"])
-        except (KeyError, IndexError):
-            data_list.append(0)  # Append 0 if error occurs
-    return data_list
-
-
-def get_data2(prefCode, cityCode, y):
+def get_data(prefCode, cityCode, y):
     data_list = []
     for year in limited_years:
         base_url = "https://opendata.resas-portal.go.jp/api/v1/municipality/value/perYear?simcCode="
@@ -45,7 +28,9 @@ def get_data2(prefCode, cityCode, y):
 # https://qiita.com/Sei123/items/b825abae8ba6cf3eb0ff
 def main():
     limited_years = [2012, 2016]
-    data_list = get_data(limited_years)
+    prefCode = "3"
+    cityCode = "03201"
+    data_list = get_data(prefCode, cityCode, limited_years)
     print(data_list)
     fig, ax = plt.subplots()
     ax.plot(limited_years, data_list)

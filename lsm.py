@@ -35,8 +35,8 @@ def lsm(x, y):
 
 if __name__ == "__main__":
     # データ
-    y = np.array([333, 4646])  # NumPy配列に変換
-    x = np.array([2012, 2016])
+    y = np.array([333, 4646, 5655, 353])  # NumPy配列に変換
+    x = np.array([2012, 2016, 2027, 2040])
     plot = lsm(x, y)
     print(plot)
     plt.show()
