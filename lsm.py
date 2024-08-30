@@ -6,7 +6,6 @@ from sklearn.linear_model import LinearRegression
 # 単回帰分析（例として最小二乗法）
 # ここでは、scikit-learnのLinearRegressionを使用
 def lsm(x, y):
-    
     model = LinearRegression()
     model.fit(x.reshape(-1, 1), y)
     # 回帰係数と切片
