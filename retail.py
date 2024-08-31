@@ -33,6 +33,8 @@ def show_graph2():
     if request.method == "GET":
         return render_template("index3.html")
     else:
+        plt.clf()
+        plt.close('all')
         prefName = request.form["prefName"]
         cityName = request.form["cityName"]
         prefCode, cityCode = get_city_code2(prefName, cityName)

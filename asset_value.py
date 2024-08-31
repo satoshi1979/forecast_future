@@ -39,10 +39,12 @@ def show_graph2():
     if request.method == "GET":
         return render_template("index3.html")
     else:
+        plt.clf()
+        plt.close('all')
         prefName = request.form["prefName"]
         cityName = request.form["cityName"]
         prefCode, cityCode = get_city_code2(prefName, cityName)
-        data_list = asset_value(prefCode, cityCode, "3")
+        data_list = asset_value(prefCode, cityCode, "1")
         y = np.array(data_list)  # NumPy配列に変換
         x = np.array(years)
         X_forecast, y_forecast = forecast_and_plot_svr(x, y)

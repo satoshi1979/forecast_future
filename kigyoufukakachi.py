@@ -38,6 +38,8 @@ def show_graph2():
         # img_base64 = make_graph()
         return render_template("index2.html")
     else:
+        plt.clf()
+        plt.close('all')
         prefName = request.form["prefName"]
         cityName = request.form["cityName"]
         prefCode, cityCode = get_city_code2(prefName, cityName)
