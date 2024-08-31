@@ -3,9 +3,10 @@ from flask import Flask, render_template, request
 import matplotlib
 import numpy as np
 from pref_cities import get_city_code2
-from lsm import lsm
+from lsm2 import forecast_and_plot_svr
 import io
 import base64
+import matplotlib.pyplot as plt
 
 api_key = "0iKaDKQrdMpKRS2LVhDifNC8QxMWDASPp9HVlnB7"
 headers = {"X-API-KEY": api_key}
@@ -27,19 +28,6 @@ def seizou_syukka(prefCode, cityCode):
     return data_list, years
 
 
-# https://qiita.com/Sei123/items/b825abae8ba6cf3eb0ff
-# def main():
-#     prefCode = "3"
-#     cityCode = "03201"
-#     data_list = seizou_syukka(prefCode, cityCode)
-#     data_list, years = seizou_syukka(prefCode, cityCode)
-#     plt.plot(years, data_list)
-#     plt.xlabel("year")
-#     plt.ylabel("seisanngaku")
-#     plt.title("seizougakunosuii")
-#     plt.show()
-
-
 @app.route("/2", methods=["GET", "POST"])
 def show_graph2():
     if request.method == "GET":
@@ -52,8 +40,17 @@ def show_graph2():
         data_list, years = seizou_syukka(prefCode, cityCode)
         y = np.array(data_list)  # NumPy配列に変換
         x = np.array(years)
-        plt = lsm(x, y)
-        # 画像を保存し、Base64エンコード
+        X_forecast, y_forecast = forecast_and_plot_svr(x, y)
+
+        # プロットを作成
+        plt.figure(figsize=(12, 6))
+        plt.scatter(x, y, color="darkorange", label="Actual data")
+        plt.plot(X_forecast, y_forecast, color="navy", label="SVR prediction")
+        plt.xlabel("Year")
+        plt.ylabel("Population")
+        plt.title(f"Population Forecast for {cityName}, {prefName}")
+        plt.legend()
+        plt.grid(True)
         img = io.BytesIO()
         plt.savefig(img, format="png")
         img.seek(0)

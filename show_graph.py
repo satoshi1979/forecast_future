@@ -4,9 +4,9 @@ import base64
 # import matplotlib.pyplot as plt
 from flask import Flask, render_template
 import io
-from kigyo_hukakachi import get_data
+from gomi.kigyo_hukakachi import get_data
 import numpy as np
-from lsm import lsm
+from gomi.lsm import lsm
 
 app = Flask(__name__)
 matplotlib.use("Agg")
