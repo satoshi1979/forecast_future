@@ -12,22 +12,27 @@ api_key = "0iKaDKQrdMpKRS2LVhDifNC8QxMWDASPp9HVlnB7"
 headers = {"X-API-KEY": api_key}
 app = Flask(__name__)
 matplotlib.use("Agg")
-years = [2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
+# years = [2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
 
 
 def asset_value(prefCode, cityCode, type):
-    years = [2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
+
     data_list = []
+    years = [2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
     for year in years:
         base_url = "https://opendata.resas-portal.go.jp/api/v1/townPlanning/estateTransaction/bar?"
         params = f"year={year}&prefCode={prefCode}&cityCode={cityCode}&displayType={type}"
         url = base_url + params
         response = requests.get(url, headers=headers)
         data = response.json()
-        try:
-            data_list.append(data["result"]["years"][0]["value"])
-        except (KeyError, IndexError):
-            data_list.append(0)  # Append 0 if error occurs
+        if data["result"] is not None and "result" in data:
+            result = data["result"]  # result に代入
+            if "years" in result and len(result["years"]) > 0:
+                value = result["years"][0]["value"]
+                if value is not None:
+                    data_list.append(value)
+        else:
+            data_list.append(0)  # 値がNoneの場合、0を追加
     return data_list
 
 
@@ -40,11 +45,13 @@ def show_graph2():
         return render_template("index3.html")
     else:
         plt.clf()
-        plt.close('all')
+        plt.close("all")
+        years = [2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
         prefName = request.form["prefName"]
         cityName = request.form["cityName"]
+        type = request.form["type"]
         prefCode, cityCode = get_city_code2(prefName, cityName)
-        data_list = asset_value(prefCode, cityCode, "1")
+        data_list = asset_value(prefCode, cityCode, type)
         y = np.array(data_list)  # NumPy配列に変換
         x = np.array(years)
         X_forecast, y_forecast = forecast_and_plot_svr(x, y)
