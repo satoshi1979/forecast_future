@@ -685,3 +685,9 @@ img.fr,img.fl {float: none;margin: 0;width: 100%;}
   text-align: center; /* ロゴを水平方向に中央揃え */
   margin-bottom: 20px; /* ナビゲーションメニューとの間隔 */
 }
+.map-image {
+    width: 50%;  /* 親要素の幅の50% */
+    height: auto; /* 高さは自動調整 */
+	margin: 0 auto; 
+}
+

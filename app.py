@@ -70,8 +70,16 @@ def show_hukakachi():
         plt.savefig(img, format="png")
         img.seek(0)
         img_base64 = base64.b64encode(img.getvalue()).decode("utf-8")
+        # Generate the map image and encode it in Base64
+        pref_colors = {prefName: "Blue"}
+        map_image_data = show_japan_map(pref_colors)
         return render_template(
-            "index.html", image_data=img_base64, prefName=prefName, cityName=cityName, Title=Title
+            "index.html",
+            image_data=img_base64,
+            prefName=prefName,
+            cityName=cityName,
+            Title=Title,
+            map=map_image_data,
         )
 
 
@@ -122,8 +130,16 @@ def show_syukka():
         plt.savefig(img, format="png")
         img.seek(0)
         img_base64 = base64.b64encode(img.getvalue()).decode("utf-8")
+        # Generate the map image and encode it in Base64
+        pref_colors = {prefName: "Blue"}
+        map_image_data = show_japan_map(pref_colors)
         return render_template(
-            "index.html", image_data=img_base64, prefName=prefName, cityName=cityName, Title=Title
+            "index.html",
+            image_data=img_base64,
+            prefName=prefName,
+            cityName=cityName,
+            Title=Title,
+            map=map_image_data,
         )
 
 
@@ -178,8 +194,16 @@ def show_population():
         plt.close()  # メモリリークを防ぐためにfigureを閉じる
         img.seek(0)
         img_base64 = base64.b64encode(img.getvalue()).decode("utf-8")
+        # Generate the map image and encode it in Base64
+        pref_colors = {prefName: "Blue"}
+        map_image_data = show_japan_map(pref_colors)
         return render_template(
-            "index.html", image_data=img_base64, prefName=prefName, cityName=cityName, Title=Title
+            "index.html",
+            image_data=img_base64,
+            prefName=prefName,
+            cityName=cityName,
+            Title=Title,
+            map=map_image_data,
         )
 
 
@@ -229,8 +253,17 @@ def show_retail():
         plt.savefig(img, format="png")
         img.seek(0)
         img_base64 = base64.b64encode(img.getvalue()).decode("utf-8")
+        # Generate the map image and encode it in Base64
+        pref_colors = {prefName: "Blue"}
+        map_image_data = show_japan_map(pref_colors)
+
         return render_template(
-            "index.html", image_data=img_base64, prefName=prefName, cityName=cityName, Title=Title
+            "index.html",
+            image_data=img_base64,
+            prefName=prefName,
+            cityName=cityName,
+            Title=Title,
+            map=map_image_data,
         )
 
 
@@ -293,10 +326,8 @@ def estate():
         plt.savefig(img, format="png")
         img.seek(0)
         img_base64 = base64.b64encode(img.getvalue()).decode("utf-8")
-
-        pref_colors = {prefName: "Blue"}
-
         # Generate the map image and encode it in Base64
+        pref_colors = {prefName: "Blue"}
         map_image_data = show_japan_map(pref_colors)
 
         return render_template(
@@ -315,7 +346,7 @@ def estate():
 
 # Function to display the Japan map with colored prefectures
 def show_japan_map(pref_colors):
-    plt.figure(figsize=(8, 8))
+    plt.figure(figsize=(6, 6))
     plt.imshow(picture(pref_colors))  # Create the map with colored prefectures
     plt.axis("off")  # Hide axes for a cleaner map view
 
