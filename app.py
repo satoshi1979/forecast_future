@@ -7,6 +7,7 @@ import numpy as np
 import requests
 from lsm2 import forecast_and_plot_svr
 import matplotlib.pyplot as plt
+from japanmap import picture
 
 # 共通
 api_key = "0iKaDKQrdMpKRS2LVhDifNC8QxMWDASPp9HVlnB7"
@@ -292,9 +293,39 @@ def estate():
         plt.savefig(img, format="png")
         img.seek(0)
         img_base64 = base64.b64encode(img.getvalue()).decode("utf-8")
+
+        pref_colors = {prefName: "Blue"}
+
+        # Generate the map image and encode it in Base64
+        map_image_data = show_japan_map(pref_colors)
+
         return render_template(
-            "index.html", image_data=img_base64, prefName=prefName, cityName=cityName, Title=Title
+            "index.html",
+            image_data=img_base64,
+            prefName=prefName,
+            cityName=cityName,
+            Title=Title,
+            map=map_image_data,
         )
+
+
+# 不動産取引価格ここまで
+# 地図
+
+
+# Function to display the Japan map with colored prefectures
+def show_japan_map(pref_colors):
+    plt.figure(figsize=(8, 8))
+    plt.imshow(picture(pref_colors))  # Create the map with colored prefectures
+    plt.axis("off")  # Hide axes for a cleaner map view
+
+    # Convert the plot to a byte array for image display in Flask
+    img = io.BytesIO()
+    plt.savefig(img, format="png")
+    img.seek(0)
+    img_base64 = base64.b64encode(img.getvalue()).decode("utf-8")
+
+    return img_base64  # Return the Base64-encoded image data
 
 
 if __name__ == "__main__":
