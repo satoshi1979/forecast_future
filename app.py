@@ -8,6 +8,7 @@ import requests
 from lsm2 import forecast_and_plot_svr
 import matplotlib.pyplot as plt
 from japanmap import picture
+from wiki import wiki
 
 # 共通
 api_key = "0iKaDKQrdMpKRS2LVhDifNC8QxMWDASPp9HVlnB7"
@@ -73,6 +74,7 @@ def show_hukakachi():
         # Generate the map image and encode it in Base64
         pref_colors = {prefName: "Blue"}
         map_image_data = show_japan_map(pref_colors)
+        Citywiki = wiki(cityName)
         return render_template(
             "index.html",
             image_data=img_base64,
@@ -80,6 +82,7 @@ def show_hukakachi():
             cityName=cityName,
             Title=Title,
             map=map_image_data,
+            Citywiki=Citywiki,
         )
 
 

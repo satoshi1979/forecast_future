@@ -1,15 +1,15 @@
-
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Graph</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-<script type="text/javascript" src="js/openclose.js"></script>
-<!--[if lt IE 9]>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Graph</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script type="text/javascript" src="js/openclose.js"></script>
+    <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
@@ -17,31 +17,34 @@
 
 <body class="s-n">
 
-<header>
-<div class="inner">
-<h1 id="logo"><a href="/"><img src="{{ url_for('static', filename='logo.png') }}"></a></h1>
-<!--大きな端末用(801px以上端末)メニュー-->
+    <header>
+        <div class="inner">
+            <h1 id="logo"><a href="/"><img src="{{ url_for('static', filename='logo.png') }}"></a></h1>
+            <!--大きな端末用(801px以上端末)メニュー-->
 
 
-</nav>
-</div>
-</header>
+            </nav>
+        </div>
+    </header>
 
-<!--小さな端末用（800px以下端末）メニュー-->
-<nav id="menubar-s">
+    <!--小さな端末用（800px以下端末）メニュー-->
+    <nav id="menubar-s">
 
-</nav>
+    </nav>
 
-<div class="contents">
-<div class="inner">
+    <div class="contents">
+        <div class="inner">
 
-<body>
-    <body>
-    <h2 style="text-align: center;">{{prefName}}{{cityName}}{{Title}}</h2>
-    <img class="graph-image" src="data:image/png;base64,{{ image_data }}"><br><br>
-    <h3 style="text-align: center;">{{prefName}}の位置</h3>
-    <img class="map-image" src="data:image/png;base64,{{ map }}" width="400" height="300">
-</body>
+            <body>
 
-</body>
+                <body>
+                    <h2 style="text-align: center;">{{prefName}}{{cityName}}{{Title}}</h2>
+                    <img class="graph-image" src="data:image/png;base64,{{ image_data }}"><br><br>
+                    <p>{{Citywiki}}</p>
+                    <h3 style="text-align: center;">{{prefName}}の位置</h3>
+                    <img class="map-image" src="data:image/png;base64,{{ map }}" width="400" height="300">
+                </body>
+
+            </body>
+
 </html>
