@@ -17,26 +17,26 @@ app = Flask(__name__)
 matplotlib.use("Agg")
 
 
-@app.route("/2")
-def top2():
-    return render_template("image.html")
+@app.route("/")
+def top():
+    return render_template("top.html")
 
 
 # top
-@app.route("/", methods=["GET", "POST"])
-def top():
-    if request.method == "GET":
-        # img_base64 = make_graph()
-        return render_template("top.html")
-    else:
-        prefName = request.form["prefName"]
-        cityName = request.form["cityName"]
-        Citywiki = wiki(cityName)
-        pref_colors = {prefName: "Blue"}
-        map_image_data = show_japan_map(pref_colors)
-        return render_template(
-            "top2.html", prefName=prefName, cityName=cityName, Citywiki=Citywiki, map=map_image_data
-        )
+# @app.route("/", methods=["GET", "POST"])
+# def top():
+#     if request.method == "GET":
+#         # img_base64 = make_graph()
+#         return render_template("top.html")
+#     else:
+#         prefName = request.form["prefName"]
+#         cityName = request.form["cityName"]
+#         Citywiki = wiki(cityName)
+#         pref_colors = {prefName: "Blue"}
+#         map_image_data = show_japan_map(pref_colors)
+#         return render_template(
+#             "top2.html", prefName=prefName, cityName=cityName, Citywiki=Citywiki, map=map_image_data
+#         )
 
 
 # 付加価値額
