@@ -28,7 +28,15 @@ body {
 	-webkit-text-size-adjust: none;
 }
 
-h1,
+h1 {
+	margin: 0px;
+	padding: 0px;
+	font-size: 30px;
+	font-weight: normal;
+	font-weight: bold;
+	color: rgb(10, 1, 1);
+	font-family: '源ノ角ゴシック', '游ゴシック', sans-serif;
+}
 h2,
 h3,
 h4,
@@ -45,8 +53,11 @@ figure,
 form {
 	margin: 0px;
 	padding: 0px;
-	font-size: 100%;
+	font-size: 30px;
 	font-weight: normal;
+	font-weight: bold;
+	color: white;
+	font-family: '源ノ角ゴシック', '游ゴシック', sans-serif;
 }
 
 ul {
@@ -1038,3 +1049,29 @@ figure.item {
   margin: 0 auto;
   justify-content: center;
 }
+
+.container {
+  display: flex; /* 親要素をフレックスコンテナにする */
+  justify-content: center; /* 横方向の中央揃え */
+  align-items: center; /* 縦方向の中央揃え */
+  height: 100vh; /* 画面の高さを100%にする（任意） */
+}
+.container h1{
+  font-size: 3rem; /* フォントサイズを3remに設定 */
+}
+.container p {
+  font-size: 1rem; /* フォントサイズを3remに設定 */
+}
+.map-image2 {
+  background-color: purple;
+}
+#video-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1; /* 他の要素よりも下に表示 */
+}
+

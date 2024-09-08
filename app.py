@@ -4,41 +4,42 @@ from pref_cities import get_city_code2
 from flask import Flask, render_template, request
 import io
 import numpy as np
-import requests
 from lsm2 import forecast_and_plot_svr
 import matplotlib.pyplot as plt
 from japanmap import picture
-from wiki import wiki
+from functions import wiki, get_data_fukakachi, seizou_syukka, population, retail_sells, asset_value
 
 # 共通
 api_key = "0iKaDKQrdMpKRS2LVhDifNC8QxMWDASPp9HVlnB7"
 headers = {"X-API-KEY": api_key}
-limited_years = [2012, 2016]
+
 app = Flask(__name__)
 matplotlib.use("Agg")
 
 
+@app.route("/2")
+def top2():
+    return render_template("image.html")
+
+
 # top
-@app.route("/")
+@app.route("/", methods=["GET", "POST"])
 def top():
-    return render_template("top.html")
+    if request.method == "GET":
+        # img_base64 = make_graph()
+        return render_template("top.html")
+    else:
+        prefName = request.form["prefName"]
+        cityName = request.form["cityName"]
+        Citywiki = wiki(cityName)
+        pref_colors = {prefName: "Blue"}
+        map_image_data = show_japan_map(pref_colors)
+        return render_template(
+            "top2.html", prefName=prefName, cityName=cityName, Citywiki=Citywiki, map=map_image_data
+        )
 
 
 # 付加価値額
-def get_data_fukakachi(prefCode, cityCode, y):
-    data_list = []
-    for year in limited_years:
-        base_url = "https://opendata.resas-portal.go.jp/api/v1/municipality/value/perYear?simcCode="
-        params = f"-&cityCode={cityCode}&year={year}&prefCode={prefCode}&sicCode=-"
-        url = base_url + params
-        response = requests.get(url, headers=headers)
-        data = response.json()
-        print(data)
-        try:
-            data_list.append(data["result"]["data"][0]["value"])
-        except (KeyError, IndexError):
-            data_list.append(0)  # Append 0 if error occurs
-    return data_list
 
 
 @app.route("/fukakachi", methods=["GET", "POST"])
@@ -90,20 +91,6 @@ def show_hukakachi():
 # 製造業出荷額
 
 
-def seizou_syukka(prefCode, cityCode):
-    base_url = "https://opendata.resas-portal.go.jp/api/v1/municipality/manufacture/perYear?"
-    params = f"cityCode={cityCode}&simcCode=-&prefCode={prefCode}&sicCode=-"
-    url = base_url + params
-    response = requests.get(url, headers=headers)
-    data = response.json()
-    data_list = []
-    years = []
-    for item in data["result"]["data"]:
-        data_list.append(item["value"])
-        years.append(item["year"])
-    return data_list, years
-
-
 @app.route("/syukka", methods=["GET", "POST"])
 def show_syukka():
     if request.method == "GET":
@@ -148,23 +135,6 @@ def show_syukka():
 
 # 製造業出荷額ここまで
 # 将来人口推計
-
-
-def population(prefCode, cityCode):
-    base_url = "https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear?"
-    params = f"cityCode={cityCode}&prefCode={prefCode}"
-    url = base_url + params
-    response = requests.get(url, headers=headers)
-    data = response.json()
-    data_list = []
-    years = []
-    for item in data["result"]["data"]:
-        if item["label"] == "総人口":
-            for data_point in item.get("data", [0]):
-                if "value" in data_point and "year" in data_point:
-                    data_list.append(data_point["value"])
-                    years.append(data_point["year"])
-    return data_list, years
 
 
 @app.route("/population", methods=["GET", "POST"])
@@ -214,20 +184,6 @@ def show_population():
 # 年間商品販売額（百万円）
 
 
-def retail_sells(prefCode, cityCode):
-    base_url = "https://opendata.resas-portal.go.jp/api/v1/municipality/sales/perYear?"
-    params = f"cityCode={cityCode}&dispType=1&simcCode=-&prefCode={prefCode}&sicCode=-"
-    url = base_url + params
-    response = requests.get(url, headers=headers)
-    data = response.json()
-    data_list = []
-    years = []
-    for item in data["result"]["data"]:
-        data_list.append(item["value"])
-        years.append(item["year"])
-    return data_list, years
-
-
 @app.route("/retail", methods=["GET", "POST"])
 def show_retail():
     if request.method == "GET":
@@ -272,27 +228,6 @@ def show_retail():
 
 # 年間商品販売額（百万円）ここまで
 # 不動産取引価格
-
-
-def asset_value(prefCode, cityCode, type):
-
-    data_list = []
-    years = [2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
-    for year in years:
-        base_url = "https://opendata.resas-portal.go.jp/api/v1/townPlanning/estateTransaction/bar?"
-        params = f"year={year}&prefCode={prefCode}&cityCode={cityCode}&displayType={type}"
-        url = base_url + params
-        response = requests.get(url, headers=headers)
-        data = response.json()
-        if data["result"] is not None and "result" in data:
-            result = data["result"]  # result に代入
-            if "years" in result and len(result["years"]) > 0:
-                value = result["years"][0]["value"]
-                if value is not None:
-                    data_list.append(value)
-        else:
-            data_list.append(0)  # 値がNoneの場合、0を追加
-    return data_list
 
 
 # https://qiita.com/Sei123/items/b825abae8ba6cf3eb0ff, methods=["GET", "POST"]

@@ -16,16 +16,10 @@
 </head>
 
 <body class="s-n">
+    <video autoplay muted loop id="video-background">
+        <source src="{{ url_for('static', filename='video5.mp4') }}" type="video/mp4">
+    </video>
 
-    <header>
-        <div class="inner">
-            <h1 id="logo"><a href="/"><img src="{{ url_for('static', filename='logo.png') }}"></a></h1>
-            <!--大きな端末用(801px以上端末)メニュー-->
-
-
-            </nav>
-        </div>
-    </header>
 
     <!--小さな端末用（800px以下端末）メニュー-->
     <nav id="menubar-s">
@@ -33,16 +27,17 @@
     </nav>
 
     <div class="contents">
-        <div class="inner">
+        <div class="inner ">
 
             <body>
 
                 <body>
-                    <h2 style="text-align: center;">{{prefName}}{{cityName}}{{Title}}</h2>
+                    <h1 style="text-align: center;">{{prefName}}{{cityName}}{{Title}}</h1>
                     <img class="graph-image" src="data:image/png;base64,{{ image_data }}"><br><br>
-                    <p>{{Citywiki}}</p>
-                    <h3 style="text-align: center;">{{prefName}}の位置</h3>
+                    <!-- <p>{{Citywiki}}</p> -->
+                    <h1 style="text-align: center;">{{prefName}}の位置</h1>
                     <img class="map-image" src="data:image/png;base64,{{ map }}" width="400" height="300">
+                    <h1>{{Citywiki}}</h1>
                 </body>
 
             </body>
