@@ -28,7 +28,7 @@
 
 .video3 {
   object-fit: cover;
-  opacity: 0.8;
+  opacity: 1.0;
   /* 0〜1の範囲で透明度を調整 */
 }
 

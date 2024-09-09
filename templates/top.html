@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>City Forecaster</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='image.css') }}">
     
 
@@ -19,7 +19,7 @@
     <a href="{{ url_for('top') }}">
     <img src="{{ url_for('static', filename='logo.png') }}" >
 </a>
-
+<h1>AIによる市町村経済予測システム</h1>
   </div>
 
 </div>
@@ -31,7 +31,7 @@
             <!-- <h2>Explanatory Text</h2><br> -->
             <p>本システムでは、AIの中でも特に高い精度を誇るサポートベクターマシン（SVM）アルゴリズムを用いて、各市町村の将来的な経済指標を予測します。予測対象となる指標は、製造業の生産活動を示す製造業出荷額と付加価値額、地域住民の構成を示す人口動態、消費活動を反映する小売販売額、そして地域経済の活況度を示す不動産取引額です。
 
-これらの経済指標を時系列データとして入力し、SVMモデルに学習させることで、将来の値を予測します。予測結果は、直感的に理解できるグラフで可視化することで、各市町村の経済状況を容易に把握することができます。</p><br>
+REASAS.APIから取得したこれらの経済指標を時系列データとして入力し、SVMモデルに学習させることで、将来の値を予測します。予測結果は、直感的に理解できるグラフで可視化することで、各市町村の経済状況を容易に把握することができます。</p><br>
 
 </div>
 </div>

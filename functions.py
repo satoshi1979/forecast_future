@@ -5,16 +5,38 @@ api_key = "0iKaDKQrdMpKRS2LVhDifNC8QxMWDASPp9HVlnB7"
 headers = {"X-API-KEY": api_key}
 
 
+# def wiki(cityName):
+#     wikipedia.set_lang("jp")
+
+#     words = wikipedia.search(cityName, results=1)
+
+#     if not words:
+#         print("一致なし")
+#     else:
+#         # 検索ワードがヒットすれば要約を取得
+#         line = str(wikipedia.summary(words[0]))
+#         return line
+
+
 def wiki(cityName):
     wikipedia.set_lang("jp")
 
-    words = wikipedia.search(cityName, results=1)
-
-    if not words:
-        print("一致なし")
-    else:
-        # 検索ワードがヒットすれば要約を取得
-        line = str(wikipedia.summary(words[0]))
+    try:
+        page = wikipedia.page(cityName)
+        if page.pageid == -1:
+            # Disambiguation case (pageid of -1 indicates disambiguation)
+            line = "候補が複数あるか、一致するページが見つかりません。"
+            return line
+        else:
+            summary = wikipedia.summary(cityName)
+            return summary
+    except wikipedia.PageError:
+        # Page doesn't exist
+        line = "候補が複数あるか、一致するページが見つかりません。"
+        return line
+    except Exception as e:
+        print(f"エラーが発生しました: {e}")
+        line = "候補が複数あるか、一致するページが見つかりません。"
         return line
 
 

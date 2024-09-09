@@ -1,59 +1,60 @@
-
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>input space</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-<script type="text/javascript" src="js/openclose.js"></script>
-<!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
-</head>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>input space</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script type="text/javascript" src="js/openclose.js"></script>
+
 
 <body class="s-n">
-
-<header>
+    <video autoplay muted loop id="video-background">
+        <source src="{{ url_for('static', filename='video4.mp4') }}" type="video/mp4">
+    </video>
+    <!-- <header>
 <div class="inner">
-<h1 id="logo"><a href="/"><img src="{{ url_for('static', filename='logo.png') }}"></a></h1>
-<!--大きな端末用(801px以上端末)メニュー-->
+
+大きな端末用(801px以上端末)メニュー
 
 
 </nav>
 </div>
-</header>
+</header> -->
 
-<!--小さな端末用（800px以下端末）メニュー-->
-<nav id="menubar-s">
+    <!-- 小さな端末用（800px以下端末）メニュー -->
+    <nav id="menubar-s">
 
-</nav>
+    </nav>
 
-<div class="contents">
-<div class="inner">
-
-
-<h2>都道府県名と市町村名を入れてください</h2>
-<h1><br></h1>
-    <form action method="POST">
-        <label for="prefName">都道府県名:</label>
-        <input type="text" id="prefName" name="prefName"><br><br>
-        <label for="cityName">市町村名:</label>
-        <input type="text" id="cityName" name="cityName"><br><br>
+    <div class="contents">
+        <div class="inner">
 
 
-<h2>取引内容を入れてください (1：土地(住宅地) 2：土地(商業地) 3：中古マンション等 4：農地 5：林地)</h2>
-<h1><br></h1>
+            <p><strong>都道府県名と市町村名を入れてください</strong></p>
+            <form action method="POST">
+                <label for="prefName"> 都道府県名:</label>
+                <input type="text" id="prefName" name="prefName"><br><br>
+                <label for="cityName"> 市町村名:</label>
+                <input type="text" id="cityName" name="cityName"><br><br>
 
-        <label for="prefName">取引内容:</label>
-        <input type="text" id="type" name="type"><br><br>
+        
 
-        <input type="submit" value="show_graph">
-    </form>
+
+
+            <p>取引内容を入れてください <br>(1：土地(住宅地) 2：土地(商業地) 3：中古マンション等 4：農地 5：林地)</p>
+
+
+            <label for="prefName">取引内容:</label>
+            <input type="text" id="type" name="type"><br><br>
+
+            <input type="submit" value="show_graph">
+            </form>
 
 
 </body>
+
 </html>
