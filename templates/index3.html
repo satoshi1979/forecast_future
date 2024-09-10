@@ -11,7 +11,7 @@
     <script type="text/javascript" src="js/openclose.js"></script>
 
 
-<body class="s-n">
+<body>
     <video autoplay muted loop id="video-background">
         <source src="{{ url_for('static', filename='video4.mp4') }}" type="video/mp4">
     </video>
@@ -26,34 +26,27 @@
 </header> -->
 
     <!-- 小さな端末用（800px以下端末）メニュー -->
-    <nav id="menubar-s">
-
-    </nav>
-
-    <div class="contents">
-        <div class="inner">
 
 
-            <p><strong>都道府県名と市町村名を入れてください</strong></p>
+    <div>
+        <div>
+
+
+            <p>都道府県名と市町村名を入れてください</p>
             <form action method="POST">
                 <label for="prefName"> 都道府県名:</label>
-                <input type="text" id="prefName" name="prefName"><br><br>
+                <input type="text" id="prefName" name="prefName"><br>
                 <label for="cityName"> 市町村名:</label>
                 <input type="text" id="cityName" name="cityName"><br><br>
 
-        
-
-
 
             <p>取引内容を入れてください <br>(1：土地(住宅地) 2：土地(商業地) 3：中古マンション等 4：農地 5：林地)</p>
-
-
             <label for="prefName">取引内容:</label>
-            <input type="text" id="type" name="type"><br><br>
+            <input type="text" id="type" name="type"><br>
 
             <input type="submit" value="show_graph">
             </form>
-
+      <p><a href="{{ url_for('top') }}">back to main</a></p>
 
 </body>
 

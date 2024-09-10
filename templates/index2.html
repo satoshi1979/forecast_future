@@ -11,30 +11,19 @@
   <script type="text/javascript" src="js/openclose.js"></script>
 
 
-<body class="s-n">
+<body>
   <video autoplay muted loop id="video-background">
     <source src="{{ url_for('static', filename='video4.mp4') }}" type="video/mp4">
   </video>
-  <!-- <header>
-<div class="inner">
-
-大きな端末用(801px以上端末)メニュー
 
 
-</nav>
-</div>
-</header> -->
-
-  <!-- 小さな端末用（800px以下端末）メニュー -->
-  <nav id="menubar-s">
-
-  </nav>
-
-  <div class="contents">
-    <div class="inner">
 
 
-      <p><strong>都道府県名と市町村名を入れてください</strong></p>
+  <div>
+    <div>
+
+
+      <p>都道府県名と市町村名を入れてください</p>
       <h1><br></h1>
       <form action method="POST">
         <label for="prefName"> 都道府県名:</label>
@@ -44,15 +33,9 @@
         <input type="submit" value="show_graph">
       </form>
 
-      <p><a href="{{ url_for('top') }}">aaa</a></p>
-      <!-- {% if image_data %}
-        <img src="data:image/png;base64,{{ image_data }}">
-    {% endif %} -->
+      <p><a href="{{ url_for('top') }}">back to main</a></p>
 
 
-      <!--メニューの３本バー-->
-
-      <!--メニューの開閉処理条件設定　800px以下-->
 
 </body>
 
