@@ -1,61 +1,78 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>City Forecaster</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='image.css') }}">
-    
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>City Forecaster</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='image.css') }}">
+
 
 </head>
+
 <body>
-<div class="video-container">
-  <video autoplay muted loop id="myVideo" style="width: 100%; height: 100%;" class="video video1">
-    <source src="{{url_for('static',filename='video.mp4')}}" type="video/mp4">
-  </video>
+  <div class="video-container">
+    <video autoplay muted loop id="myVideo" style="width: 100%; height: 100%;" class="video video1">
+      <source src="{{url_for('static',filename='video.mp4')}}" type="video/mp4">
+    </video>
 
 
-  <div class="logo-wrapper">
-    <a href="{{ url_for('top') }}">
-    <img src="{{ url_for('static', filename='logo.png') }}" >
-</a>
-<h1>AIによる市町村経済予測システム</h1>
+    <div class="logo-wrapper">
+      <a href="{{ url_for('top') }}">
+        <img src="{{ url_for('static', filename='logo.png') }}">
+      </a>
+      <h1>AIによる市町村経済予測システム</h1>
+    </div>
+
   </div>
+  <div class="video-container">
+    <video autoplay muted loop id="myVideo2" style="width: 100%; height: 100%;" class="video video2">
+      <source src="{{ url_for('static', filename='video2.mp4') }}" type="video/mp4">
+    </video>
+    <div class="overlay text1">
+      <!-- <h2>Explanatory Text</h2><br> -->
+      <p>本システムでは、AIの中でも特に高い精度を誇るサポートベクターマシン（SVM）アルゴリズムを用いて、各市町村の将来的な経済指標を予測します。予測対象となる指標は、製造業の生産活動を示す製造業出荷額と付加価値額、地域住民の構成を示す人口動態、消費活動を反映する小売販売額、そして地域経済の活況度を示す不動産取引額です。
 
-</div>
-<div class="video-container">
-          <video autoplay muted loop id="myVideo2" style="width: 100%; height: 100%;" class="video video2">
-            <source src="{{ url_for('static', filename='video2.mp4') }}" type="video/mp4">
-        </video>
-                <div class="overlay text1">
-            <!-- <h2>Explanatory Text</h2><br> -->
-            <p>本システムでは、AIの中でも特に高い精度を誇るサポートベクターマシン（SVM）アルゴリズムを用いて、各市町村の将来的な経済指標を予測します。予測対象となる指標は、製造業の生産活動を示す製造業出荷額と付加価値額、地域住民の構成を示す人口動態、消費活動を反映する小売販売額、そして地域経済の活況度を示す不動産取引額です。
+        REASAS.APIから取得したこれらの経済指標を時系列データとして入力し、SVMモデルに学習させることで、将来の値を予測します。予測結果は、直感的に理解できるグラフで可視化することで、各市町村の経済状況を容易に把握することができます。</p><br>
 
-REASAS.APIから取得したこれらの経済指標を時系列データとして入力し、SVMモデルに学習させることで、将来の値を予測します。予測結果は、直感的に理解できるグラフで可視化することで、各市町村の経済状況を容易に把握することができます。</p><br>
-
-</div>
-</div>
-<div class="video-container">
-          <video autoplay muted loop id="myVideo3" style="width: 100%; height: 100%;" class="video video3">
-            <source src="{{ url_for('static', filename='video3.mp4') }}" type="video/mp4">
-        </video>
-                <div class="overlay text2">
-            <h2>Explanatory Text</h2>
-            <p>This is an example of explanatory text that can be placed on top of the video.</p>
-            <ul>
-                <li><a href="/syukka">製造業出荷額</a></li>
-                <li><a href="/fukakachi">付加価値額</a></li>
-                <li><a href="/population">人口動態</a></li>
-                <li><a href="/retail">小売販売額</a></li>
-                <li><a href="/estate">不動産取引額</a></li>
-            </ul>
-        <style>
+    </div>
+  </div>
+  <div class="video-container">
+    <video autoplay muted loop id="myVideo3" style="width: 100%; height: 100%;" class="video video3">
+      <source src="{{ url_for('static', filename='video3.mp4') }}" type="video/mp4">
+    </video>
+    <div class="overlay text2">
+      <h2>AIによる経済予測 → </h2>
+      <p> 製造業、人口、消費、不動産など、5つの経済指標を基に、地域の将来を展望</p>
+      <ul>
+        <li><a href="/syukka">製造業出荷額</a></li>
+        <li><a href="/fukakachi">付加価値額</a></li>
+        <li><a href="/population">人口動態</a></li>
+        <li><a href="/retail">小売販売額</a></li>
+        <li><a href="/estate">不動産取引額</a></li>
+      </ul>
+      <style>
         /* リンクの色を白に設定 */
         a {
-            color: white;
+          color: white;
         }
-    </style>
+      </style>
+    </div>
+  </div>
+  <div class="video-container">
+    <video autoplay muted loop id="myVideo6" style="width: 100%; height: 100%;" class="video video2">
+      <source src="{{ url_for('static', filename='video6.mp4') }}" type="video/mp4">
+    </video>
+<div class="overlay text1">
+  <ul>
+    <li><strong>製造業出荷額</strong>: 地域で作られた製品の売れ行きを示し、地域の産業の活況度を測ります。</li>
+    <li><strong>付加価値額</strong>: 生産活動によって生み出された価値を表し、地域の経済成長力を示します。</li>
+    <li><strong>人口動態</strong>: 人口を示し、将来の経済活動や社会サービスの需要を予測する上で重要です。</li>
+    <li><strong>小売販売額</strong>: 商品の売れ行きを示し、地域住民の消費意欲や経済状況を反映します。</li>
+    <li><strong>不動産取引額</strong>: 土地や建物の売買額を示し、地域の経済活性度や不動産市場の動向を示します。</li>
+  </ul>
 </div>
-</div>
+  </div>
 </body>
+
 </html>
