@@ -1,5 +1,9 @@
 from wikipedia import wikipedia
 import requests
+from japanmap import picture
+import base64
+import io
+import matplotlib.pyplot as plt
 
 api_key = "0iKaDKQrdMpKRS2LVhDifNC8QxMWDASPp9HVlnB7"
 headers = {"X-API-KEY": api_key}
@@ -120,6 +124,21 @@ def asset_value(prefCode, cityCode, type):
         else:
             data_list.append(0)  # 値がNoneの場合、0を追加
     return data_list
+
+
+# Function to display the Japan map with colored prefectures
+def show_japan_map(pref_colors):
+    plt.figure(figsize=(6, 6))
+    plt.imshow(picture(pref_colors))  # Create the map with colored prefectures
+    plt.axis("off")  # Hide axes for a cleaner map view
+
+    # Convert the plot to a byte array for image display in Flask
+    img = io.BytesIO()
+    plt.savefig(img, format="png")
+    img.seek(0)
+    img_base64 = base64.b64encode(img.getvalue()).decode("utf-8")
+
+    return img_base64  # Return the Base64-encoded image data
 
 
 if __name__ == "__main__":

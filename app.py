@@ -6,8 +6,16 @@ import io
 import numpy as np
 from lsm2 import forecast_and_plot_svr
 import matplotlib.pyplot as plt
-from japanmap import picture
-from functions import wiki, get_data_fukakachi, seizou_syukka, population, retail_sells, asset_value
+
+from functions import (
+    wiki,
+    get_data_fukakachi,
+    seizou_syukka,
+    population,
+    retail_sells,
+    asset_value,
+    show_japan_map,
+)
 
 # 共通
 api_key = "0iKaDKQrdMpKRS2LVhDifNC8QxMWDASPp9HVlnB7"
@@ -123,6 +131,7 @@ def show_syukka():
         # Generate the map image and encode it in Base64
         pref_colors = {prefName: "Blue"}
         map_image_data = show_japan_map(pref_colors)
+        Citywiki = wiki(cityName)
         return render_template(
             "index.html",
             image_data=img_base64,
@@ -130,6 +139,7 @@ def show_syukka():
             cityName=cityName,
             Title=Title,
             map=map_image_data,
+            Citywiki=Citywiki,
         )
 
 
@@ -170,6 +180,7 @@ def show_population():
         # Generate the map image and encode it in Base64
         pref_colors = {prefName: "Blue"}
         map_image_data = show_japan_map(pref_colors)
+        Citywiki = wiki(cityName)
         return render_template(
             "index.html",
             image_data=img_base64,
@@ -177,6 +188,7 @@ def show_population():
             cityName=cityName,
             Title=Title,
             map=map_image_data,
+            Citywiki=Citywiki,
         )
 
 
@@ -215,7 +227,7 @@ def show_retail():
         # Generate the map image and encode it in Base64
         pref_colors = {prefName: "Blue"}
         map_image_data = show_japan_map(pref_colors)
-
+        Citywiki = wiki(cityName)
         return render_template(
             "index.html",
             image_data=img_base64,
@@ -223,6 +235,7 @@ def show_retail():
             cityName=cityName,
             Title=Title,
             map=map_image_data,
+            Citywiki=Citywiki,
         )
 
 
@@ -267,7 +280,7 @@ def estate():
         # Generate the map image and encode it in Base64
         pref_colors = {prefName: "Blue"}
         map_image_data = show_japan_map(pref_colors)
-
+        Citywiki = wiki(cityName)
         return render_template(
             "index.html",
             image_data=img_base64,
@@ -275,26 +288,12 @@ def estate():
             cityName=cityName,
             Title=Title,
             map=map_image_data,
+            Citywiki=Citywiki,
         )
 
 
 # 不動産取引価格ここまで
 # 地図
-
-
-# Function to display the Japan map with colored prefectures
-def show_japan_map(pref_colors):
-    plt.figure(figsize=(6, 6))
-    plt.imshow(picture(pref_colors))  # Create the map with colored prefectures
-    plt.axis("off")  # Hide axes for a cleaner map view
-
-    # Convert the plot to a byte array for image display in Flask
-    img = io.BytesIO()
-    plt.savefig(img, format="png")
-    img.seek(0)
-    img_base64 = base64.b64encode(img.getvalue()).decode("utf-8")
-
-    return img_base64  # Return the Base64-encoded image data
 
 
 if __name__ == "__main__":

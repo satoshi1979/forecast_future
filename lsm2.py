@@ -16,7 +16,7 @@ def forecast_and_plot_svr(x, y, forecast_years=20):
     y_scaled = scaler_y.fit_transform(y)
 
     # SVRモデルの訓練
-    svr_rbf = SVR(kernel="rbf", C=100, gamma=0.1, epsilon=0.1)
+    svr_rbf = SVR(kernel="rbf", C=1, gamma=0.1, epsilon=0.1)
     svr_rbf.fit(X_scaled, y_scaled.ravel())
 
     # 予測用のデータ作成
