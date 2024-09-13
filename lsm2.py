@@ -4,7 +4,7 @@ from sklearn.svm import SVR
 from sklearn.preprocessing import StandardScaler
 
 
-def forecast_and_plot_svr(x, y, forecast_years=20):
+def forecast_and_plot_svr(x, y, forecast_years):
     # データの準備
     X = x.reshape(-1, 1)
     y = y.reshape(-1, 1)

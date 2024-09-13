@@ -23,16 +23,17 @@
     <div>
 
 
-      <p>都道府県名と市町村名を入れてください</p>
+      <p>都道府県名と市町村名、予測したい年数を入れてください</p>
       <h1><br></h1>
       <form action method="POST">
         <label for="prefName"> 都道府県名:</label>
-        <input type="text" id="prefName" name="prefName"><br><br>
+        <input type="text" id="prefName" name="prefName">
         <label for="cityName"> 市町村名:</label>
-        <input type="text" id="cityName" name="cityName"><br><br>
+        <input type="text" id="cityName" name="cityName"><br>
+        <label for="years"> 年数:</label>
+        <input type="text" id="years" name="years"><br>
         <input type="submit" value="show_graph">
       </form>
-
       <p><a href="{{ url_for('top') }}">back to main</a></p>
 
 

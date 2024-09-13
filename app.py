@@ -30,23 +30,6 @@ def top():
     return render_template("top.html")
 
 
-# top
-# @app.route("/", methods=["GET", "POST"])
-# def top():
-#     if request.method == "GET":
-#         # img_base64 = make_graph()
-#         return render_template("top.html")
-#     else:
-#         prefName = request.form["prefName"]
-#         cityName = request.form["cityName"]
-#         Citywiki = wiki(cityName)
-#         pref_colors = {prefName: "Blue"}
-#         map_image_data = show_japan_map(pref_colors)
-#         return render_template(
-#             "top2.html", prefName=prefName, cityName=cityName, Citywiki=Citywiki, map=map_image_data
-#         )
-
-
 # 付加価値額
 
 
@@ -60,12 +43,13 @@ def show_hukakachi():
         plt.close("all")
         prefName = request.form["prefName"]
         cityName = request.form["cityName"]
+        years = int(request.form["years"])
         prefCode, cityCode = get_city_code2(prefName, cityName)
         limited_years = [2012, 2016]
         data_list = get_data_fukakachi(prefCode, cityCode, limited_years)
         y = np.array(data_list)  # NumPy配列に変換
         x = np.array(limited_years)
-        X_forecast, y_forecast = forecast_and_plot_svr(x, y)
+        X_forecast, y_forecast = forecast_and_plot_svr(x, y, years)
         Title = "の付加価値額(企業単位)"
         # プロットを作成
         plt.figure(figsize=(12, 6))
@@ -109,11 +93,12 @@ def show_syukka():
         plt.close("all")
         prefName = request.form["prefName"]
         cityName = request.form["cityName"]
+        forecast_years = int(request.form["years"])
         prefCode, cityCode = get_city_code2(prefName, cityName)
         data_list, years = seizou_syukka(prefCode, cityCode)
         y = np.array(data_list)  # NumPy配列に変換
         x = np.array(years)
-        X_forecast, y_forecast = forecast_and_plot_svr(x, y)
+        X_forecast, y_forecast = forecast_and_plot_svr(x, y, forecast_years)
 
         # プロットを作成
         plt.figure(figsize=(12, 6))
@@ -156,11 +141,12 @@ def show_population():
         plt.close("all")
         prefName = request.form["prefName"]
         cityName = request.form["cityName"]
+        forecast_years = int(request.form["years"])
         prefCode, cityCode = get_city_code2(prefName, cityName)
         data_list, years = population(prefCode, cityCode)
         y = np.array(data_list)  # NumPy配列に変換
         x = np.array(years)
-        X_forecast, y_forecast = forecast_and_plot_svr(x, y)
+        X_forecast, y_forecast = forecast_and_plot_svr(x, y, forecast_years)
 
         # プロットを作成
         plt.figure(figsize=(12, 6))
@@ -205,11 +191,12 @@ def show_retail():
         plt.close("all")
         prefName = request.form["prefName"]
         cityName = request.form["cityName"]
+        forecast_years = int(request.form["years"])
         prefCode, cityCode = get_city_code2(prefName, cityName)
         data_list, years = retail_sells(prefCode, cityCode)
         y = np.array(data_list)  # NumPy配列に変換
         x = np.array(years)
-        X_forecast, y_forecast = forecast_and_plot_svr(x, y)
+        X_forecast, y_forecast = forecast_and_plot_svr(x, y, forecast_years)
 
         # プロットを作成
         plt.figure(figsize=(12, 6))
@@ -243,9 +230,6 @@ def show_retail():
 # 不動産取引価格
 
 
-# https://qiita.com/Sei123/items/b825abae8ba6cf3eb0ff, methods=["GET", "POST"]
-
-
 @app.route("/estate", methods=["GET", "POST"])
 def estate():
     if request.method == "GET":
@@ -256,12 +240,13 @@ def estate():
         years = [2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
         prefName = request.form["prefName"]
         cityName = request.form["cityName"]
+        forecast_years = int(request.form["years"])
         type = request.form["type"]
         prefCode, cityCode = get_city_code2(prefName, cityName)
         data_list = asset_value(prefCode, cityCode, type)
         y = np.array(data_list)  # NumPy配列に変換
         x = np.array(years)
-        X_forecast, y_forecast = forecast_and_plot_svr(x, y)
+        X_forecast, y_forecast = forecast_and_plot_svr(x, y, forecast_years)
 
         # プロットを作成
         plt.figure(figsize=(12, 6))
